@@ -1,10 +1,4 @@
-CONSUMERSJSON = '/./config/consumers.json'
-CONSUMERSJSON_KEY_CONSUMERS = 'consumers'
-CONSUMERSJSON_KEY_ENTITY = 'entity'
-CONSUMERSJSON_KEY_DELETE = 'delete'
-CONSUMERSJSON_KEY_SEND_TO_COMMERCE = 'send_to_commerce'
-
-PARAMETERSJSON = '/./config/parameters.json'
+BASE_URL = 'http://localhost:8092'
 
 REQ_FILE = 'file'
 REQ_FILES = 'files'

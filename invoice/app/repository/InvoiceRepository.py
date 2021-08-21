@@ -1,20 +1,29 @@
 import logging
+import json
 import utils.Utils as Utils
 import utils.RestUtils as RestUtils
 import constants.constants as constants
 
 
-class IdvRepository(object):
+class InvoiceRepository(object):
 
-    def __init__(self, base_url):
-        self.logger = logging.getLogger(self.__class__.__name__)
-        self.base_url = base_url
-        super().__init__(self.logger)
+    def __init__(self):
+        self.logger = logging.getLogger(self.__class__.__name__)            
 
-    def save_many(self, products):
-        url = f'{self.base_url}/idv'
-        created = super().save_many(products, url)
+    def save_many(self, invoices):
+        url = f'{constants.BASE_URL}/invoices'
+        created = super().save_many(invoices, url)
         return created
+
+    def save_invoice(self, invoice):        
+        url = f'{constants.BASE_URL}/invoices'  
+        request = invoice.generate_req_to_send()  
+        response_status = RestUtils.post(url, headers={}, **{constants.REQ_JSON: request})
+        if response_status == 201:
+            self.logger.info(f'Se registro la factura para el cliente {invoice.get_client_name()} con RUC {invoice.get_client_ruc()}')        
+            return invoice 
+        else:
+            raise Exception('Error al guardar las facturas.')        
 
     def get_many(self, codes):
         idvs = {}

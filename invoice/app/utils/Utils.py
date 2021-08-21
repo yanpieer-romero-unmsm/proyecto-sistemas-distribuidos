@@ -41,12 +41,8 @@ def write_json(filename, data):
         json.dump(data, outfile)
 
 
-def create_parameters(jsonfile):
-    from repository.ParameterRepository import ParameterRepository
+def get_total_invoice(unitPrice, quantity):
+    return unitPrice*quantity
 
-    pwd_dir = get_pwd_dir()
-    filename = pwd_dir + jsonfile
-
-    parameter_repository = ParameterRepository()
-    parameters = parameter_repository.find_all()
-    write_json(filename, parameters)
+def get_total_igv(total_invoice):
+    return 0.18*total_invoice

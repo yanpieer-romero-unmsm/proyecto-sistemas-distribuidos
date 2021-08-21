@@ -16,7 +16,7 @@ class OpsKafkaWriter(object):
         if kafka producer is not connected, then start the connection
         """
         if self.producer is None:       
-            self.logger.info(f'Conectado al Kafka: {envargs.KAFKA_SERVER}:{envargs.KAFKA_PORT} - Topic: {self.topic}')
+            self.logger.info(f'Conectado al Kafka: {envargs.KAFKA_SERVER}:{envargs.KAFKA_PORT} - Topic: {envargs.KAFKA_TOPIC_OUT}')
             self.producer = KafkaProducer(                
                 bootstrap_servers=[f'{envargs.KAFKA_SERVER}:{envargs.KAFKA_PORT}'],
                 value_serializer=lambda x: dumps(x).encode('utf-8')
