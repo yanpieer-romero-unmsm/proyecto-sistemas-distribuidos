@@ -10,7 +10,7 @@ class InvoiceEntity(object):
     KEY_QUANTITY = 'quantity'
     KEY_CLIENT_RUC = 'ruc'
 
-    KEY_CLIENT_ID = 'client_id'
+    KEY_CLIENT_ID = 'clientId'
     KEY_TOTAL_IGV = 'igvTotal'
     KEY_TOTAL_INVOICE = 'invoiceTotal'
 
