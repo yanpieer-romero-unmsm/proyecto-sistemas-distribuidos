@@ -9,16 +9,25 @@ producer = KafkaProducer(bootstrap_servers='localhost:9092', value_serializer=la
 
 def create_reservation_message(correlative):
     data = {
-		"article": {
-			"code": correlative,
-			"name": "name0001",
-			"unitPrice": 15.0,
-			"quantity": 3
-		},
-		"client": {
+    	"orderId": 1532,
+    	"client": {
 			"ruc": "17200140",
 			"name": "Edinson Boada"
-		}
+		},
+		"articles": [
+			{
+				"code": correlative,
+				"name": "name0001",
+				"unitPrice": 15.0,
+				"quantity": 3
+			},
+			{
+				"code": f'{correlative}0',
+				"name": "name0002",
+				"unitPrice": 20.0,
+				"quantity": 2
+			}
+		]
 	}
     return data
 
@@ -26,7 +35,7 @@ def create_reservation_message(correlative):
 for e in range(2):    
     correlative = str(27200140+e)
     message = create_reservation_message(correlative)   
-    producer.send('reservation_topic', value=message)
+    producer.send('inventory_management_topic', value=message)
     logging.info(message)
     sleep(0.1)
 sleep(1)

@@ -44,5 +44,6 @@ def write_json(filename, data):
 def get_total_invoice(unitPrice, quantity):
     return unitPrice*quantity
 
+
 def get_total_igv(total_invoice):
-    return 0.18*total_invoice
+    return round(0.18*total_invoice, 2)

@@ -21,14 +21,14 @@ class OpsKafkaReader(object):
         """
         if self.consumer is None:
             self.logger.info(f'Conectado al Kafka: {envargs.KAFKA_SERVER}:{envargs.KAFKA_PORT} - Topic: {self.topic}')
-            self.consumer = KafkaConsumer(                
+            self.consumer = KafkaConsumer(
                 envargs.KAFKA_TOPIC,
                 bootstrap_servers=[f'{envargs.KAFKA_SERVER}:{envargs.KAFKA_PORT}'],
                 auto_offset_reset='earliest',
                 enable_auto_commit=False,
                 group_id='unmsm-group',
                 value_deserializer=lambda x: loads(x.decode('utf-8')),
-                api_version = (0,10,1)
+                api_version=(0, 10, 1)
             )
 
         return self.consumer
@@ -42,6 +42,7 @@ class OpsKafkaReader(object):
     def consume(self):
         raw_messages = self.poll()
         items = raw_messages.items()
+        self.logger.info('acknowledge.!')
         for topic_partition, messages in items:
             self.logger.info(f' topic_partition> {topic_partition}')
             self.logger.debug(f' messages> {messages}')
