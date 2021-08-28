@@ -9,8 +9,6 @@ public interface OrderDao {
 
     Optional<ArticleDto> findById(Integer id);
 
-    List<ArticleDto> findAll();
-
     void updateStock(Integer quantity, Integer articleId);
 
 }

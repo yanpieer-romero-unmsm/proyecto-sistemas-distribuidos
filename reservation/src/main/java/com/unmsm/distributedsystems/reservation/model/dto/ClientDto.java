@@ -1,4 +1,4 @@
-package com.unmsm.distributedsystems.reservation.model.api;
+package com.unmsm.distributedsystems.reservation.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @AllArgsConstructor
-public class Client implements Serializable {
+public class ClientDto implements Serializable {
 
     String ruc;
     String name;
