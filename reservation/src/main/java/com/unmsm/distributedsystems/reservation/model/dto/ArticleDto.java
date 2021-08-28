@@ -1,9 +1,6 @@
 package com.unmsm.distributedsystems.reservation.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -11,13 +8,12 @@ import java.io.Serializable;
 @Setter
 @Getter
 @AllArgsConstructor
+@Data
 public class ArticleDto implements Serializable {
 
     private Integer id;
-
+    private String code;
     private String name;
-
     private Double unitPrice;
-
-    private Integer stock;
+    private Integer quantity;
 }

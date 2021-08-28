@@ -13,5 +13,4 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, Integer
     List<ArticleEntity> findAll();
     Optional<ArticleEntity> findById(Integer id);
     ArticleEntity save(ArticleEntity articleEntity);
-    ArticleEntity getOne(Integer id);
 }

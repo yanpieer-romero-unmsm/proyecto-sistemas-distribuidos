@@ -12,7 +12,7 @@ public class ArticleBuilder {
                 .id(articleEntity.getId())
                 .name(articleEntity.getName())
                 .unitPrice(articleEntity.getUnitPrice())
-                .stock(articleEntity.getStock())
+                .quantity(articleEntity.getStock())
                 .build();
     }
 }
