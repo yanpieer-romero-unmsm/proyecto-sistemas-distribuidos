@@ -8,12 +8,14 @@ import (
 	"github.com/segmentio/kafka-go"
 )
 
-func StartKafkaProducer(topic string, message string) {
+func StartKafkaProducer(topic string, server string, message string) {
 
 	writer := &kafka.Writer{
-		Addr: kafka.TCP("localhost:9092"),
+		Addr: kafka.TCP(server),
 		Topic: topic,
 	}
+
+	fmt.Println("Starting producer")
 
 	err := writer.WriteMessages(context.Background(), kafka.Message{
 		Value: []byte(message),
@@ -26,4 +28,6 @@ func StartKafkaProducer(topic string, message string) {
 	fmt.Println("Sending a message to kafka: \n", string(message))
 	
 	writer.Close()
+	
+	fmt.Println("Finishing producer")
 }

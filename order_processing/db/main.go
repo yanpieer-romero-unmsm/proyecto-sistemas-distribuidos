@@ -9,11 +9,11 @@ import (
 	"yanpieer.com/order_processing/model"
 )
 
-func ConnectingWithRedis(obj model.Order) {
-	fmt.Println("Go Redis Tutorial")
+func ConnectingWithRedis(server string, obj model.Order) {
+	fmt.Println("Starting redis")
 
 	client := redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
+		Addr: server,
 		Password: "",
 		DB: 0,
 	})
@@ -34,4 +34,5 @@ func ConnectingWithRedis(obj model.Order) {
     }
     fmt.Println(val)
 
+	fmt.Println("Finishing redis")
 }

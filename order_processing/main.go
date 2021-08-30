@@ -12,6 +12,7 @@ import (
 	"yanpieer.com/order_processing/db"
 	"yanpieer.com/order_processing/model"
 	"yanpieer.com/order_processing/producer"
+	"yanpieer.com/order_processing/util"
 )
 
 
@@ -28,9 +29,9 @@ var clients = []model.Client{
 }
 
 var orders = []model.Order{
-	{ 1, clients[0], articles }, 
-	{ 2, clients[1], articles },
-	{ 3, clients[2], articles },
+	{ OrderID: 1, Client: clients[0], Article: articles }, 
+	{ OrderID: 2, Client: clients[1], Article: articles },
+	{ OrderID: 3, Client: clients[2], Article: articles },
 }
 
 
@@ -40,17 +41,12 @@ func main() {
 	router.GET("/orders/:id", getOrderByID)
 	router.POST("/orders", postOrders)
 
-	router.Run("localhost:8080")
+	router.Run(util.SERVER_LOCAL)
 	
-/* 	producer.StartKafkaProducer("order-processing_topic", string(orders)) */
-
 }
 
 
 func getOrders(c *gin.Context) {
-	fmt.Println("Starting consumer")
-	consumer.StartKafkaConsumer()
-	fmt.Println("Finishing consumer")
 	c.IndentedJSON(http.StatusOK, orders)
 }
 
@@ -65,14 +61,11 @@ func postOrders(c *gin.Context) {
 	orders = append(orders, newOrder)
 	c.IndentedJSON(http.StatusCreated, newOrder)
 	jsonE, _ := json.Marshal(newOrder)
-	fmt.Println("Starting producer")
-	producer.StartKafkaProducer("order_processing_topic", string(jsonE))
-	fmt.Println("Finishing producer")
-	/* log.Output(1, string(jsonE)) */
 
-	fmt.Println("Starting to connect with redis")
-	db.ConnectingWithRedis(newOrder)
-	fmt.Println("Finishing to connect with redis")
+	producer.StartKafkaProducer(util.TOPIC, util.SERVER_KAFKA, string(jsonE))
+	consumer.StartKafkaConsumer(util.TOPIC, util.SERVER_KAFKA)
+	/* log.Output(1, string(jsonE)) */
+	db.ConnectingWithRedis(util.SERVER_REDIS, newOrder)
 }
 
 
