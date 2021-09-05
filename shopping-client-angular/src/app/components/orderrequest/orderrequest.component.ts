@@ -13,7 +13,8 @@ export class OrderrequestComponent implements OnInit {
   constructor(private articleService: ArticlesService) { }
 
   ngOnInit(): void {
-    this.articleService.listar().subscribe(articles => this.articles = articles);
+    this.articleService.listar()
+    .subscribe(articles => this.articles = articles);
   }
 
 }
