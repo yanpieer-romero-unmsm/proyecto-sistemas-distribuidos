@@ -10,11 +10,13 @@ import { UtilsModule } from './utils/utils.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
+import { ReceivablesComponent } from './components/receivables/receivables.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OrderrequestComponent
+    OrderrequestComponent,
+    ReceivablesComponent
   ],
   imports: [
     BrowserModule,
