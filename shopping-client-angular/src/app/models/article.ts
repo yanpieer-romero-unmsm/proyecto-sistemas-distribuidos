@@ -4,7 +4,7 @@ export class Article implements Generic {
     id: number;
     code: string;
     name: string;
-    unitPrince: number;
+    unitPrice: number;
     quantity: number;
     subtotal: number;
 }

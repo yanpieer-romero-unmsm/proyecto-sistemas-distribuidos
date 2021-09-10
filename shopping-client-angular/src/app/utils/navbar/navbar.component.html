@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="#" routerLink="/content">
     <img width="40" alt="Library logo" class="logo" src="../../../assets/images/library-logo.png" />
     <b>FISI Tiendas útiles</b>
   </a>
@@ -10,10 +10,13 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="#" routerLink="/articulos" routerLinkActive=active>Artículos</a>        
+        <a class="nav-link" href="#" [routerLink]="[{ outlets: { cuerpo: ['solicitud'] } }]" routerLinkActive=active>Articulos</a>        
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" routerLink="/ordenes" routerLinkActive=active>Órdenes de compra</a>
+        <a class="nav-link" href="#" [routerLink]="[{ outlets: { cuerpo: ['receivables'] } }]" routerLinkActive=active>Cuenta por Cobrar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" routerLinkActive=active>Salir</a>
       </li>
     </ul>
   </div>

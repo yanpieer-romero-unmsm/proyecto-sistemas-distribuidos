@@ -13,8 +13,7 @@
             <p>Precio: s/. {{article.unitPrice}}</p>
             <p>Disponibles: {{article.quantity}}</p>
 
-            <form (ngSubmit)="pagar(article.id, article.quantity, cont)" novalidate
-                #f="ngForm">
+            <form (ngSubmit)="pagar(article.id, article.quantity, cont)" novalidate #f="ngForm">
                 <div class="form-group">
                     <input type="text" class="form-control" name="quantity" [(ngModel)]="quantity[cont]"
                         placeholder="Digite la cantidad..." required>

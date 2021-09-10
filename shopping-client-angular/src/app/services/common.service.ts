@@ -36,4 +36,8 @@ export abstract class CommonService<M extends Generic> {
     );
   }
 
+  public eliminar(id: number): Observable<void>{
+    return this.http.delete<void>(`${this.baseEndpoint}/${id}`);
+  }
+
 }

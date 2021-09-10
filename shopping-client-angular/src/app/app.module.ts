@@ -11,12 +11,16 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import { ReceivablesComponent } from './components/receivables/receivables.component';
+import { LoginComponent } from './components/login/login.component';
+import { ContentComponent } from './components/content/content.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrderrequestComponent,
-    ReceivablesComponent
+    ReceivablesComponent,
+    LoginComponent,
+    ContentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrdersService } from 'src/app/services/orders.service';
 import { Article } from '../../models/article';
 import { ArticlesService } from '../../services/articles.service';
 
@@ -9,10 +10,10 @@ import { ArticlesService } from '../../services/articles.service';
 })
 export class OrderrequestComponent implements OnInit {
   ruc: string = '';
-  articles: Article[];
+  articles: Article [];
   quantity: number[] = [];
 
-  constructor(private articleService: ArticlesService) { }
+  constructor(private articleService: ArticlesService, private orderService: OrdersService) { }
 
   ngOnInit(): void {
     this.articleService.listar()
@@ -24,7 +25,11 @@ export class OrderrequestComponent implements OnInit {
     if(stock<available) {
       window.alert("No hay la cantidad solicitada");
     } else {
-      console.log("Se realizó el pago");
+  
+      this.articles[indexArray].quantity = available;
+      console.log(this.articles[indexArray]);
+      this.orderService.payArticle(this.articles[indexArray]);
+      window.alert('Se realizó el pago');
     }
   }
 
