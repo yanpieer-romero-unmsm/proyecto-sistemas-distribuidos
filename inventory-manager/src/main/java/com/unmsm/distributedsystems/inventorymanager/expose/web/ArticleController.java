@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/articles")
+@RequestMapping("/api-inventory-management/articles")
 @AllArgsConstructor
 public class ArticleController {
 
