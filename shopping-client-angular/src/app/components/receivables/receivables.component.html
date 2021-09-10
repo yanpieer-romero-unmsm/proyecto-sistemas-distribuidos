@@ -1,1 +1,23 @@
-<p>receivables works!</p>
+<div class="container">
+
+    <mat-card *ngFor="let receivable of receivables;" class="card-receivable">
+        <!-- header -->
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Fecha: {{receivable.paymentDate}}</mat-card-title>
+            <mat-card-subtitle>{{receivable.client.name}}</mat-card-subtitle>
+        </mat-card-header>
+
+        <!-- content -->
+        <mat-card-content>
+            
+            <p>Código de la orden: {{receivable.orderId}}</p>
+            <div *ngFor="let article of receivable.articles;">
+                <p>{{article.quantity}} unidades de {{article.name}} : s/. {{article.subtotal}}</p>
+            </div>
+            <p>Total: s/. {{receivable.totalInvoice}}</p>
+            
+        </mat-card-content>
+    </mat-card>
+
+</div>

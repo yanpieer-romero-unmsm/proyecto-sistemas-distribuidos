@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ArticlesService extends CommonService<Article>{
 
-  protected baseEndpoint = '/api/articles';
+  protected baseEndpoint = '/api-inventory-management/articles';
 
   constructor(http: HttpClient) { 
     super(http);

@@ -19,16 +19,6 @@ export class OrderrequestComponent implements OnInit {
     .subscribe(articles => this.articles = articles);
   }
 
-  isDisabled(stock: number, indexArray: number): boolean {
-    var num: number = Number(this.quantity[indexArray-1]);
-    if(stock<num){
-      console.log("TRUE------------------");
-      return true;
-    }
-    console.log("FALSE------------------");
-    return false;
-  }
-
   pagar(idArticle: string, stock: number, indexArray: number): void {
     var available: number = Number(this.quantity[indexArray]);
     if(stock<available) {
@@ -36,7 +26,6 @@ export class OrderrequestComponent implements OnInit {
     } else {
       console.log("Se realizó el pago");
     }
-
   }
 
 }

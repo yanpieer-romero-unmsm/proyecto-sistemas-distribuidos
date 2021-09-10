@@ -8,7 +8,7 @@ import { CommonService } from './common.service';
 })
 export class ReceivablesService extends CommonService<Receivable>{
 
-  protected baseEndpoint = '/api/receivables';
+  protected baseEndpoint = '/api-order-processing/receivables';
 
   constructor(http: HttpClient) { 
     super(http);

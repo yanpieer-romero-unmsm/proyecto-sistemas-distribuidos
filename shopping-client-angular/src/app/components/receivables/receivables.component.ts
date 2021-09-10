@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Receivable } from '../../models/receivable';
+import { ReceivablesService } from '../../services/receivables.service';
 
 @Component({
   selector: 'app-receivables',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReceivablesComponent implements OnInit {
 
-  constructor() { }
+  receivables: Receivable[];
+
+  constructor(private receivableService: ReceivablesService) { }
 
   ngOnInit(): void {
+    this.receivableService.listar()
+      .subscribe(receivables => this.receivables = receivables);
   }
 
 }

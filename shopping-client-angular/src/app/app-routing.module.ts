@@ -5,9 +5,9 @@ import { ReceivablesComponent } from './components/receivables/receivables.compo
 
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'solicitud' },
-  { path: 'solicitud', component: OrderrequestComponent },
-  { path: 'receivables', component: ReceivablesComponent }
+  { path: '', pathMatch: 'full', redirectTo: 'articulos' },
+  { path: 'articulos', component: OrderrequestComponent },
+  { path: 'ordenes', component: ReceivablesComponent }
 ];
 
 @NgModule({

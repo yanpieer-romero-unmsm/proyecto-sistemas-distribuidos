@@ -5,7 +5,7 @@ import { Article } from './article';
 export class Receivable implements Generic {
     id: number;
     orderId: number;
-    invoiceId: number;
+    invoiceId: string;
     totalIgv: number;
     totalInvoice: number;
     paymentDate: string;
