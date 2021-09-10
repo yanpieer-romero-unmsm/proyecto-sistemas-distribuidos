@@ -1,15 +1,16 @@
-package com.unmsm.distributedsystems.reservation.service;
+package com.unmsm.distributedsystems.reservation.service.async;
 
 import static com.unmsm.distributedsystems.reservation.util.constant.Constants.INVENTORY_MANAGEMENT_TOPIC;
 import static com.unmsm.distributedsystems.reservation.util.constant.Constants.ORDER_PROCESSING_ERROR_TOPIC;
 
 import com.google.gson.Gson;
-import com.unmsm.distributedsystems.reservation.dao.OrderDao;
+import com.unmsm.distributedsystems.reservation.dao.ArticleDao;
 import com.unmsm.distributedsystems.reservation.model.dto.ArticleDto;
 import com.unmsm.distributedsystems.reservation.model.dto.OrderProcessingDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class InventoryManagerConsumer {
 
-  private final OrderDao dao;
+  private final ArticleDao dao;
   private final InventoryManagerProducer inventoryManagerProducer;
 
   @KafkaListener(topics = "order_processing_topic", groupId = "group_id")
@@ -27,18 +28,18 @@ public class InventoryManagerConsumer {
     List<ArticleDto> articles = orderProcessing.getArticles();
     AtomicInteger count = new AtomicInteger(0);
     Boolean isValidated = articles.stream()
-            .filter(this::thereIsStock)
-            .map(article -> {
-                count.addAndGet(1);
-                return article;
-            })
-            .map(article -> isOrderValidated(articles.size(), count.get(), article))
-            .anyMatch(isValidate -> isValidate);
+        .filter(this::thereIsStock)
+        .map(article -> {
+          count.addAndGet(1);
+          return article;
+        })
+        .map(article -> isOrderValidated(articles.size(), count.get(), article))
+        .anyMatch(isValidate -> isValidate);
 
     if (isValidated) {
-        inventoryManagerProducer.publish(new Gson().toJson(orderProcessing), INVENTORY_MANAGEMENT_TOPIC);
+      inventoryManagerProducer.publish(new Gson().toJson(orderProcessing), INVENTORY_MANAGEMENT_TOPIC);
     } else {
-        inventoryManagerProducer.publish(orderProcessing.getOrderId().toString(), ORDER_PROCESSING_ERROR_TOPIC);
+      inventoryManagerProducer.publish(orderProcessing.getOrderId().toString(), ORDER_PROCESSING_ERROR_TOPIC);
     }
   }
 
@@ -51,11 +52,11 @@ public class InventoryManagerConsumer {
   private Boolean isOrderValidated(Integer totalArticles,
                                    Integer articlesValidated,
                                    ArticleDto article) {
-      if (totalArticles == articlesValidated) {
-        dao.updateStock(article.getQuantity(), article.getId());
-        return Boolean.TRUE;
-      }
-      return Boolean.FALSE;
+    if (totalArticles == articlesValidated) {
+      dao.updateStock(article.getQuantity(), article.getId());
+      return Boolean.TRUE;
+    }
+    return Boolean.FALSE;
   }
 
 }

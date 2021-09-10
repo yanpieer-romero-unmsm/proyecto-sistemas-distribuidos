@@ -1,6 +1,5 @@
 package com.unmsm.distributedsystems.reservation.model.dto;
 
-import com.unmsm.distributedsystems.reservation.model.dto.ClientDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,8 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderProcessingDto implements Serializable {
 
-    Integer orderId;
-    ClientDto client;
-    List<ArticleDto> articles;
+  Integer orderId;
+  ClientDto client;
+  List<ArticleDto> articles;
 
 }

@@ -13,6 +13,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ClientDto implements Serializable {
 
-    String ruc;
-    String name;
+  String ruc;
+  String name;
 }

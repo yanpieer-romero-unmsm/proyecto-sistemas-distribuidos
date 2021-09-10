@@ -1,24 +1,33 @@
 package com.unmsm.distributedsystems.reservation.dao.impl;
 
-import com.unmsm.distributedsystems.reservation.dao.OrderDao;
+import com.unmsm.distributedsystems.reservation.dao.ArticleDao;
 import com.unmsm.distributedsystems.reservation.model.dto.ArticleDto;
 import com.unmsm.distributedsystems.reservation.model.entity.ArticleEntity;
 import com.unmsm.distributedsystems.reservation.repository.ArticleRepository;
-import com.unmsm.distributedsystems.reservation.util.build.ArticleBuilder;
+import com.unmsm.distributedsystems.reservation.util.mapper.ArticleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
-public class OrderDaoImpl implements OrderDao {
+public class ArticleDaoImpl implements ArticleDao {
 
     private final ArticleRepository repository;
-    private final ArticleBuilder articleBuilder;
+    private final ArticleMapper articleMapper;
 
     @Override
     public Optional<ArticleDto> findById(Integer id) {
-        return repository.findById(id).map(articleBuilder::build);
+        return repository.findById(id).map(articleMapper::build);
+    }
+
+    @Override
+    public List<ArticleDto> findAll() {
+        return repository.findAll().stream().map(articleMapper::build)
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -28,4 +37,5 @@ public class OrderDaoImpl implements OrderDao {
         articleToUpdate.setStock(actualStock - quantity);
         repository.save(articleToUpdate);
     }
+
 }

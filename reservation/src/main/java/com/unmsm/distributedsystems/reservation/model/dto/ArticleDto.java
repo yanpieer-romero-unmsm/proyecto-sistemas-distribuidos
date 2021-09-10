@@ -11,9 +11,9 @@ import java.io.Serializable;
 @Data
 public class ArticleDto implements Serializable {
 
-    private Integer id;
-    private String code;
-    private String name;
-    private Double unitPrice;
-    private Integer quantity;
+  private Integer id;
+  private String code;
+  private String name;
+  private Double unitPrice;
+  private Integer quantity;
 }
