@@ -8,7 +8,7 @@ import { ArticlesService } from '../../services/articles.service';
   styleUrls: ['./orderrequest.component.css']
 })
 export class OrderrequestComponent implements OnInit {
-  ruc: string = "";
+  ruc: string = '';
   articles: Article[];
   quantity: number[] = [];
 
