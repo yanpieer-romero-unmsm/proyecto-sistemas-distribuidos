@@ -58,7 +58,7 @@ class InvoiceEntity(object):
         for article in articles:
             quantity = article[self.KEY_QUANTITY]
             unit_price = article[self.KEY_UNIT_PRICE]
-            article[self.KEY_SUBTOTAL] = quantity*unit_price
+            article[self.KEY_SUBTOTAL] = round(quantity*unit_price, 2)
         return articles
 
     def get_order_id(self):
