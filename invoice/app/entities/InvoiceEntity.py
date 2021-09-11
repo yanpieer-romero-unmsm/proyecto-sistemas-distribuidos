@@ -45,7 +45,7 @@ class InvoiceEntity(object):
         for article in articles:
             quantity = article[self.KEY_QUANTITY]
             unit_price = article[self.KEY_UNIT_PRICE]
-            total_invoice = total_invoice + quantity*unit_price
+            total_invoice = total_invoice + round(quantity*unit_price, 2)
         return total_invoice
 
     def get_igv(self):
