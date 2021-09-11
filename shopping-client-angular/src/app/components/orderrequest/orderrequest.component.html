@@ -15,7 +15,7 @@
 
             <form (ngSubmit)="pagar(article.id, article.quantity, cont)" novalidate #f="ngForm">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="quantity" [(ngModel)]="quantity[cont]"
+                    <input type="text" class="form-control" name="quantity" [(ngModel)]="quantities[cont]"
                         placeholder="Digite la cantidad..." required>
                 </div>
                 <button class="btn btn-outline-success btn-block btn-pay" [disabled]="!f.valid">Pagar</button>

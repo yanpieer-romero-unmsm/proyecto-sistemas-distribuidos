@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class OrderrequestComponent implements OnInit {
   ruc: string = '';
   articles: Article [];
-  quantity: number[] = [];
+  quantities: number[] = [];
 
   constructor(private articleService: ArticlesService, private orderService: OrdersService) { }
 
@@ -22,21 +22,17 @@ export class OrderrequestComponent implements OnInit {
   }
 
   pagar(idArticle: string, stock: number, indexArray: number): void {
-    var available: number = Number(this.quantity[indexArray]);
-    if(stock<available) {
+    var quantity: number = Number(this.quantities[indexArray]);
+    if(stock < quantity) {
       Swal.fire('La orden no pudo ser procesada: ',
       'No contamos con esta cantidad de productos',
       'error');
     } else {
-  
-      this.articles[indexArray].quantity = available;
       this.articles[indexArray].subtotal = 0;
-      console.log(this.articles[indexArray]);
       this.orderService.payArticle(this.articles[indexArray]);
       Swal.fire('Orden pagada: ',
       'Orden pagada con éxito',
       'success');
     }
   }
-
 }
