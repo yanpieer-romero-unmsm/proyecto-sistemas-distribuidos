@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'content', component: ContentComponent, children: [
       { path: '', component: OrderrequestComponent, outlet: 'cuerpo' },
-      { path: 'solicitud', component: OrderrequestComponent, outlet: 'cuerpo' },
+      { path: 'articulos', component: OrderrequestComponent, outlet: 'cuerpo' },
       { path: 'receivables', component: ReceivablesComponent, outlet: 'cuerpo' }
   ]}
 
