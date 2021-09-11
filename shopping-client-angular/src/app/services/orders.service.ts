@@ -24,13 +24,13 @@ export class OrdersService extends CommonService<Order>{
     this.client.id = user.id;
     this.client.name = user.name;
     this.client.ruc = user.ruc;
+    localStorage.setItem('myCat', String(JSON.stringify(this.client)));
   }
 
   payArticle(article: Article) {
     this.order = new Order();
-    this.order.id = 0;
     this.order.orderId = Math.floor(Math.random() * 1000) + 1;
-    this.order.client = this.client;
+    this.order.client = JSON.parse(localStorage.getItem('myCat'));
     this.order.articles[0] = article;
     console.log(this.order);
     this.crear(this.order).subscribe();

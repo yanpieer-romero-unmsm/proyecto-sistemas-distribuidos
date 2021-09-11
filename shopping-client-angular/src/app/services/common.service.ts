@@ -16,6 +16,11 @@ export abstract class CommonService<M extends Generic> {
      return this.http.get<M[]>(this.baseEndpoint);
   }
 
+  public listarByObject(): Observable<M> {
+    return this.http.get<M>(this.baseEndpoint);
+ }
+
+
   public obtener(id: string): Observable<M> {
     return this.http.get<M>(`${this.baseEndpoint}/${id}`)
   }
