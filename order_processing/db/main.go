@@ -9,10 +9,10 @@ import (
 	"yanpieer.com/order_processing/model"
 )
 
-func ConnectingWithRedis(server string, obj model.Order) {
+func ConnectingWithRedis(server string, obj model.Receivable) []model.Receivable{
 	fmt.Println("Starting redis")
 
-	client := redis.NewClient(&redis.Options{
+	clientRedis := redis.NewClient(&redis.Options{
 		Addr: server,
 		Password: "",
 		DB: 0,
@@ -23,12 +23,12 @@ func ConnectingWithRedis(server string, obj model.Order) {
         fmt.Println(err)
     }
 
-    err = client.Set(strconv.FormatInt(obj.OrderID, 10), json, 0).Err()
+    err = clientRedis.Set(strconv.FormatInt(obj.OrderId, 10), json, 0).Err()
     if err != nil {
         fmt.Println(err)
     }
 
-    val, err := client.Get(strconv.FormatInt(obj.OrderID, 10)).Result()
+    val, err := clientRedis.Get(strconv.FormatInt(obj.OrderId, 10)).Result()
     if err != nil {
         fmt.Println(err)
     }

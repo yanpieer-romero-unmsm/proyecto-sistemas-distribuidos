@@ -16,26 +16,10 @@ import (
 )
 
 
-var articles = []model.Article{
-	{ ID: 1, Code: "00012", Name: "Lapicero", UnitPrice: 2.5, Quantity: 1 },
-	{ ID: 2, Code: "00013", Name: "Regla", UnitPrice: 3.5, Quantity: 1 },
-	{ ID: 3, Code: "00015",  Name: "Mochila", UnitPrice: 2.5, Quantity: 1 },
-}
 
-var clients = []model.Client{
-	{ Ruc: "17200193", Name: "Yanpieer" },
-	{ Ruc: "17200133", Name: "Miguel" },
-	{ Ruc: "17200140", Name: "Paolo" },
-}
 
 var orders = []model.Order{
-	{ OrderID: 1, Client: clients[0], Article: articles }, 
-	{ OrderID: 2, Client: clients[1], Article: articles },
-	{ OrderID: 3, Client: clients[2], Article: articles },
 }
-
-var receivables = []model.Receivable{
-	{ OrderId: 6, InvoiceId: "papapa", TotalIgv: 123, TotalInvoice: 123, PaymentDate: "asda", Client: clients[0], Articles: articles },}
 
 func main() {
 	router := gin.Default()
@@ -56,7 +40,13 @@ func getOrders(c *gin.Context) {
 func getReceivables(c *gin.Context) {
 	//jsonE, _ := json.Marshal(receivables[0])
 	//fmt.Println(string(jsonE))
-	consumer.StartKafkaConsumer(util.TOPIC_RECEIVABLE, util.SERVER_KAFKA)
+
+	m := consumer.StartKafkaConsumer(util.TOPIC_RECEIVABLE, util.SERVER_KAFKA)
+	fmt.Println("String receivable :  ", m)
+	var receivables model.Receivable
+	json.Unmarshal([]byte(m), &receivables)
+	fmt.Println("Elemento de receivable: ", receivables)
+	db.ConnectingWithRedis(util.SERVER_REDIS, receivables)
 	c.IndentedJSON(http.StatusOK, receivables)
 }
 
@@ -74,7 +64,7 @@ func postOrders(c *gin.Context) {
 	producer.StartKafkaProducer(util.TOPIC_ORDER, util.SERVER_KAFKA, string(jsonE))
 	consumer.StartKafkaConsumer(util.TOPIC_ORDER, util.SERVER_KAFKA)
 	/* log.Output(1, string(jsonE)) */
-	db.ConnectingWithRedis(util.SERVER_REDIS, newOrder)
+	//db.ConnectingWithRedis(util.SERVER_REDIS, newOrder)
 }
 
 
