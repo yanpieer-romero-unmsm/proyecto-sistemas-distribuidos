@@ -9,11 +9,12 @@
             </mat-card-title>
             <mat-card-subtitle>{{receivable.client.name}}</mat-card-subtitle>
             <mat-card-subtitle>Código de la orden: {{receivable.orderId}}</mat-card-subtitle>
-            <mat-card-subtitle>Fecha: {{receivable.paymentDate}}</mat-card-subtitle>
+            <mat-card-subtitle>Fecha de entrega: {{receivable.paymentDate}}</mat-card-subtitle>
         </mat-card-header>
 
         <!-- content -->
         <mat-card-content>
+            <mat-card-subtitle>IGV: s/. {{receivable.totalIgv}}</mat-card-subtitle>
             <mat-card-subtitle>Total: s/. {{receivable.totalInvoice}}</mat-card-subtitle>
         </mat-card-content>
     </mat-card>
