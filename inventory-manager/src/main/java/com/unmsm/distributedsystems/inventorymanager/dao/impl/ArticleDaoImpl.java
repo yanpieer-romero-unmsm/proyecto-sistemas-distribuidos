@@ -2,8 +2,8 @@ package com.unmsm.distributedsystems.inventorymanager.dao.impl;
 
 import com.unmsm.distributedsystems.inventorymanager.dao.ArticleDao;
 import com.unmsm.distributedsystems.inventorymanager.model.dto.ArticleDto;
-import com.unmsm.distributedsystems.inventorymanager.model.entity.ArticleEntity;
-import com.unmsm.distributedsystems.inventorymanager.repository.ArticleRepository;
+import com.unmsm.distributedsystems.inventorymanager.model.entity.ArticleDocument;
+import com.unmsm.distributedsystems.inventorymanager.repository.ArticleRepositoryNoSql;
 import com.unmsm.distributedsystems.inventorymanager.util.mapper.ArticleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Component
 public class ArticleDaoImpl implements ArticleDao {
 
-    private final ArticleRepository repository;
+    private final ArticleRepositoryNoSql repository;
     private final ArticleMapper articleMapper;
 
     @Override
@@ -32,7 +32,7 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Override
     public void updateStock(Integer quantity, Integer articleId) {
-        ArticleEntity articleToUpdate = repository.findById(articleId).get();
+        ArticleDocument articleToUpdate = repository.findById(articleId).get();
         Integer actualStock = articleToUpdate.getStock();
         articleToUpdate.setStock(actualStock - quantity);
         repository.save(articleToUpdate);
