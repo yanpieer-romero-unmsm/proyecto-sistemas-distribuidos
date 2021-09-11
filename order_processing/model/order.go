@@ -1,8 +1,7 @@
 package model
 
-type Order struct {
-    ID         int64      `json:"id"`    
+type Order struct { 
     OrderID    int64      `json:"orderId"`
     Client     Client     `json:"client"`
-    Article    []Article  `json:"article"`
+    Article    []Article  `json:"articles"`
 }

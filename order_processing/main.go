@@ -23,23 +23,26 @@ var articles = []model.Article{
 }
 
 var clients = []model.Client{
-	{ ID: 1, Ruc: "17200193", Name: "Yanpieer" },
-	{ ID: 2, Ruc: "17200133", Name: "Miguel" },
-	{ ID: 3, Ruc: "17200140", Name: "Paolo" },
+	{ Ruc: "17200193", Name: "Yanpieer" },
+	{ Ruc: "17200133", Name: "Miguel" },
+	{ Ruc: "17200140", Name: "Paolo" },
 }
 
 var orders = []model.Order{
-	{ ID: 1, OrderID: 1, Client: clients[0], Article: articles }, 
-	{ ID: 2, OrderID: 2, Client: clients[1], Article: articles },
-	{ ID: 3, OrderID: 3, Client: clients[2], Article: articles },
+	{ OrderID: 1, Client: clients[0], Article: articles }, 
+	{ OrderID: 2, Client: clients[1], Article: articles },
+	{ OrderID: 3, Client: clients[2], Article: articles },
 }
 
+var receivables = []model.Receivable{
+	{ OrderId: 6, InvoiceId: "papapa", TotalIgv: 123, TotalInvoice: 123, PaymentDate: "asda", Client: clients[0], Articles: articles },}
 
 func main() {
 	router := gin.Default()
 	router.GET("/api-order-processing/orders", getOrders)
 	router.GET("/api-order-processing/orders/:id", getOrderByID)
 	router.POST("/api-order-processing/orders", postOrders)
+	router.GET("/api-order-processing/receivables", getReceivables)
 
 	router.Run(util.SERVER_LOCAL)
 	
@@ -50,6 +53,12 @@ func getOrders(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, orders)
 }
 
+func getReceivables(c *gin.Context) {
+	//jsonE, _ := json.Marshal(receivables[0])
+	//fmt.Println(string(jsonE))
+	consumer.StartKafkaConsumer(util.TOPIC_RECEIVABLE, util.SERVER_KAFKA)
+	c.IndentedJSON(http.StatusOK, receivables)
+}
 
 func postOrders(c *gin.Context) {
 	var newOrder model.Order
@@ -62,8 +71,8 @@ func postOrders(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newOrder)
 	jsonE, _ := json.Marshal(newOrder)
 
-	producer.StartKafkaProducer(util.TOPIC, util.SERVER_KAFKA, string(jsonE))
-	consumer.StartKafkaConsumer(util.TOPIC, util.SERVER_KAFKA)
+	producer.StartKafkaProducer(util.TOPIC_ORDER, util.SERVER_KAFKA, string(jsonE))
+	consumer.StartKafkaConsumer(util.TOPIC_ORDER, util.SERVER_KAFKA)
 	/* log.Output(1, string(jsonE)) */
 	db.ConnectingWithRedis(util.SERVER_REDIS, newOrder)
 }
