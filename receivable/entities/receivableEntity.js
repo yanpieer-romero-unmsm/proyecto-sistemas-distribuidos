@@ -4,7 +4,8 @@ import { Producer } from '../producer/kafka_producer.js';
 
 export class ReceivableEntity {
     
-    constructor(receivable) {    
+    constructor(receivable) {   
+        this.order_id =  receivable['orderId']
         this.invoice_id = receivable['invoiceId'];        
         this.shipping_date = receivable['receivable_id'];
         this.total_invoice = receivable['invoiceTotal'];
@@ -21,7 +22,8 @@ export class ReceivableEntity {
 
     send_message() {
         const producer = new Producer()
-        const receivableMessage = this.get_receivable_message()
+        let receivableMessage = this.get_receivable_message_to_send()
+        receivableMessage.orderId = this.order_id
         producer.queueRandomMessage(receivableMessage);
         console.log("Cuentas por cobrar enviadas al tópico!")
     }
@@ -32,6 +34,22 @@ export class ReceivableEntity {
             "invoice_id" : "${this.invoice_id}",        
             "total_invoice" : "${this.total_invoice}",
             "total_igv" : "${this.total_igv}"
+          }`;
+
+        let jsonReceivable = JSON.parse(receivable);   
+
+        jsonReceivable.client = this.client;
+        jsonReceivable.articles = this.articles;
+
+        return jsonReceivable;
+    }
+
+    get_receivable_message_to_send() {
+        let receivable = `{
+            "receivableId" : "${uuidv4()}",
+            "invoiceId" : "${this.invoice_id}",        
+            "totalInvoice" : "${this.total_invoice}",
+            "totalIgv" : "${this.total_igv}"
           }`;
 
         let jsonReceivable = JSON.parse(receivable);   

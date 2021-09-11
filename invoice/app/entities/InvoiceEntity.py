@@ -17,12 +17,14 @@ class InvoiceEntity(object):
     KEY_TOTAL_IGV = 'igvTotal'
     KEY_TOTAL_INVOICE = 'invoiceTotal'
     KEY_SUBTOTAL = 'subtotal'
+    KEY_ORDER_ID = 'orderId'
 
     def __init__(self, invoice):
         self.invoice = invoice
 
     def generate_req_to_send(self):
         request = {
+            self.KEY_ORDER_ID: self.get_order_id(),
             self.KEY_INVOICE_ID: str(uuid.uuid4()),
             self.KEY_TOTAL_IGV: self.get_igv(),
             self.KEY_TOTAL_INVOICE: self.get_invoice(),
@@ -32,7 +34,6 @@ class InvoiceEntity(object):
         return request
 
     def get_article(self):
-        print(self.invoice)
         return self.invoice[self.KEY_ARTICLES]
 
     def get_client(self):
@@ -59,3 +60,6 @@ class InvoiceEntity(object):
             unit_price = article[self.KEY_UNIT_PRICE]
             article[self.KEY_SUBTOTAL] = quantity*unit_price
         return articles
+
+    def get_order_id(self):
+        return self.invoice[self.KEY_ORDER_ID]
