@@ -1,4 +1,4 @@
-package com.unmsm.distributedsystems.inventorymanager.model.entity;
+package com.unmsm.distributedsystems.inventorymanager.model.entity.document;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -24,5 +24,7 @@ public class ArticleDocument {
   private Double unitPrice;
 
   private Integer stock;
+
+  private Double subtotal;
 
 }

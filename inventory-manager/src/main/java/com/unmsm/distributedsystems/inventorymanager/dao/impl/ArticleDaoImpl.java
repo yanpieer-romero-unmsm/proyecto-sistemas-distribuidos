@@ -2,8 +2,8 @@ package com.unmsm.distributedsystems.inventorymanager.dao.impl;
 
 import com.unmsm.distributedsystems.inventorymanager.dao.ArticleDao;
 import com.unmsm.distributedsystems.inventorymanager.model.dto.ArticleDto;
-import com.unmsm.distributedsystems.inventorymanager.model.entity.ArticleDocument;
-import com.unmsm.distributedsystems.inventorymanager.repository.ArticleRepositoryNoSql;
+import com.unmsm.distributedsystems.inventorymanager.model.entity.document.ArticleDocument;
+import com.unmsm.distributedsystems.inventorymanager.repository.nosql.ArticleRepositoryNoSql;
 import com.unmsm.distributedsystems.inventorymanager.util.mapper.ArticleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,12 +21,12 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Override
     public Optional<ArticleDto> findById(Integer id) {
-        return repository.findById(id).map(articleMapper::build);
+        return repository.findById(id).map(articleMapper::buildDocumentToDto);
     }
 
     @Override
     public List<ArticleDto> findAll() {
-        return repository.findAll().stream().map(articleMapper::build)
+        return repository.findAll().stream().map(articleMapper::buildDocumentToDto)
             .collect(Collectors.toList());
     }
 
