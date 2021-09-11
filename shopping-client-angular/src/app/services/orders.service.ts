@@ -11,7 +11,7 @@ import { CommonService } from './common.service';
 })
 export class OrdersService extends CommonService<Order>{
 
-  protected baseEndpoint = '/api/orders';
+  protected baseEndpoint = '/api-order-processing/orders';
   client: Client;
   order: Order;
 
@@ -28,7 +28,8 @@ export class OrdersService extends CommonService<Order>{
 
   payArticle(article: Article) {
     this.order = new Order();
-    this.order.id = Math.floor(Math.random() * 1000) + 1;
+    this.order.id = 0;
+    this.order.orderId = Math.floor(Math.random() * 1000) + 1;
     this.order.client = this.client;
     this.order.article[0] = article;
     console.log(this.order);

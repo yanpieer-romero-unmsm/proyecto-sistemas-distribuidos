@@ -27,6 +27,7 @@ export class OrderrequestComponent implements OnInit {
     } else {
   
       this.articles[indexArray].quantity = available;
+      this.articles[indexArray].subtotal = 0;
       console.log(this.articles[indexArray]);
       this.orderService.payArticle(this.articles[indexArray]);
       window.alert('Se realizó el pago');

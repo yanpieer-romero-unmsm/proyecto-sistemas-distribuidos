@@ -3,7 +3,8 @@ import { Client } from "./client";
 import { Generic } from "./generic";
 
 export class Order implements Generic{
-    id: number;
+    id: number
+    orderId: number
     client: Client;
     article: Article[] = [];
 }
