@@ -1,13 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
 import { post } from '../rest/RestUtils.js'
 import { Producer } from '../producer/kafka_producer.js';
+import { getShippingDate } from '../utils/utilitary_functions.js'
 
 export class ReceivableEntity {
     
     constructor(receivable) {   
         this.order_id =  receivable['orderId']
         this.invoice_id = receivable['invoiceId'];        
-        this.shipping_date = receivable['receivable_id'];
+        this.shipping_date = getShippingDate()
         this.total_invoice = receivable['invoiceTotal'];
         this.total_igv = receivable['igvTotal'];
         this.client = receivable['client'];
@@ -33,7 +34,7 @@ export class ReceivableEntity {
             "receivable_id" : "${uuidv4()}",
             "invoice_id" : "${this.invoice_id}",        
             "total_invoice" : "${this.total_invoice}",
-            "total_igv" : "${this.total_igv}"
+            "total_igv" : "${this.total_igv}"            
           }`;
 
         let jsonReceivable = JSON.parse(receivable);   
@@ -49,7 +50,8 @@ export class ReceivableEntity {
             "receivableId" : "${uuidv4()}",
             "invoiceId" : "${this.invoice_id}",        
             "totalInvoice" : "${this.total_invoice}",
-            "totalIgv" : "${this.total_igv}"
+            "totalIgv" : "${this.total_igv}",
+            "paymentDate" : "${this.shipping_date}"
           }`;
 
         let jsonReceivable = JSON.parse(receivable);   
