@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
       alert('Error login');
       return;
     }
-    this.client.id = Math.floor(Math.random() * 1000) + 1;
     console.log(this.client)
     this.order.login(this.client);
     this.router.navigate(['/content']);

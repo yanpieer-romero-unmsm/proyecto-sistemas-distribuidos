@@ -31,7 +31,7 @@ export class OrdersService extends CommonService<Order>{
     this.order.id = 0;
     this.order.orderId = Math.floor(Math.random() * 1000) + 1;
     this.order.client = this.client;
-    this.order.article[0] = article;
+    this.order.articles[0] = article;
     console.log(this.order);
     this.crear(this.order).subscribe();
   }

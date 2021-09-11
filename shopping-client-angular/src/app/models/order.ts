@@ -6,5 +6,5 @@ export class Order implements Generic{
     id: number
     orderId: number
     client: Client;
-    article: Article[] = [];
+    articles: Article[] = [];
 }
