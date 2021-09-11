@@ -28,11 +28,19 @@ export class OrderrequestComponent implements OnInit {
       'No contamos con esta cantidad de productos',
       'error');
     } else {
+      this.articles[indexArray].quantity = quantity;
       this.articles[indexArray].subtotal = 0;
       this.orderService.payArticle(this.articles[indexArray]);
       Swal.fire('Orden pagada: ',
       'Orden pagada con éxito',
       'success');
+      this.refresh();
     }
+  }
+
+  refresh(): void { 
+    this.articleService.listar().subscribe(articles => {
+      this.articles = articles;
+    });
   }
 }

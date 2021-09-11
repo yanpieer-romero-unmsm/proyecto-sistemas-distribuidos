@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ArticleRepository extends CrudRepository<ArticleEntity, Integer> {
+public interface ArticleRepositoryH2 extends CrudRepository<ArticleEntity, Integer> {
 
   List<ArticleEntity> findAll();
 
