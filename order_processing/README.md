@@ -1,4 +1,4 @@
-# API Inventory Manager
+# API Order Processing
 API asíncrona que consume información del tópico order_processing_topic, la procesa y la envía a la cola del
 tópico inventory_management_topic.
 
@@ -6,11 +6,9 @@ Además, expone los artículos disponibles en base de datos.
 
 ## Pre requisitos
 ### Plugins
-Plugins que deben estar instalados en su IDE:
-* [Lombok] (http://projectlombok.org/) - *Librería de Bytecode que genera automáticamente los getters y setters*
 
 ### Repositorios
-* [MongoDB] Articles
+* [Redis] Order
 
 ### Kafka
 Ubicarse en el directorio de KAFKA_HOME
@@ -33,7 +31,8 @@ Ubicarse en el directorio de KAFKA_HOME
   bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic orderTopic --from-beginning
 
 ## Ejecución del proyecto
-
+$ go get 
+$ go run main.go 
 
 ## Covertura de pruebas unitarias
 No aplica.
