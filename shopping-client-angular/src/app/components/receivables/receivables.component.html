@@ -4,19 +4,17 @@
         <!-- header -->
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Fecha: {{receivable.paymentDate}}</mat-card-title>
+            <mat-card-title *ngFor="let article of receivable.articles;">
+                {{article.quantity}} unidades de {{article.name}} : s/. {{article.subtotal}}
+            </mat-card-title>
             <mat-card-subtitle>{{receivable.client.name}}</mat-card-subtitle>
+            <mat-card-subtitle>Código de la orden: {{receivable.orderId}}</mat-card-subtitle>
+            <mat-card-subtitle>Fecha: {{receivable.paymentDate}}</mat-card-subtitle>
         </mat-card-header>
 
         <!-- content -->
         <mat-card-content>
-            
-            <p>Código de la orden: {{receivable.orderId}}</p>
-            <div *ngFor="let article of receivable.articles;">
-                <p>{{article.quantity}} unidades de {{article.name}} : s/. {{article.subtotal}}</p>
-            </div>
-            <p>Total: s/. {{receivable.totalInvoice}}</p>
-            
+            <mat-card-subtitle>Total: s/. {{receivable.totalInvoice}}</mat-card-subtitle>
         </mat-card-content>
     </mat-card>
 
