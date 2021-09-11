@@ -1,0 +1,64 @@
+openapi: 3.0.1
+info:
+  title: Librería UNMSM
+  description: Servicio para guardar información relacionada a un articulo de la librería de la UNMSM
+  version: 1.0.0
+servers:
+  - url: /api/v1
+  - url: /
+paths:
+  /receivable:
+    post:
+      tags:
+        - Receivable
+      description: Endpoint for creating Receivable
+      requestBody:
+        $ref: "#/components/requestBodies/ReceivablePost"
+      responses:
+        200:
+          $ref: "#/components/responses/ReceivablePostResponse"
+        500:
+          $ref: "#/components/responses/Error"
+components:
+  responses:
+    ReceivablePostResponse:
+      description: Response of creating receivable
+      content:
+        application/json:
+          schema:
+            type: object
+    Error:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ReceivablePost:
+      type: object
+      required:
+        - receivable_id
+        - invoice_id
+        - total_invoice
+        - total_igv
+        - client
+        - articles
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            Message:
+              type: string
+              example: "generic error"
+            Status:
+              type: number
+              example: 500
+  requestBodies:
+    ReceivablePost:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ReceivablePost"

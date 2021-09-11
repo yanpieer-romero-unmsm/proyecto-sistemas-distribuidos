@@ -42,7 +42,6 @@ class OpsKafkaReader(object):
     def consume(self):
         raw_messages = self.poll()
         items = raw_messages.items()
-        self.logger.info('acknowledge.!')
         for topic_partition, messages in items:
             self.logger.info(f' topic_partition> {topic_partition}')
             self.logger.debug(f' messages> {messages}')
