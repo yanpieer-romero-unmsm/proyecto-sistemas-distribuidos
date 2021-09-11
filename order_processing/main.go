@@ -17,29 +17,29 @@ import (
 
 
 var articles = []model.Article{
-	{ ID: 1, Name: "Lapicero", UnitPrice: 2.5, Quantity: 1 },
-	{ ID: 2, Name: "Regla", UnitPrice: 3.5, Quantity: 1 },
-	{ ID: 3, Name: "Mochila", UnitPrice: 2.5, Quantity: 1 },
+	{ ID: 1, Code: "00012", Name: "Lapicero", UnitPrice: 2.5, Quantity: 1 },
+	{ ID: 2, Code: "00013", Name: "Regla", UnitPrice: 3.5, Quantity: 1 },
+	{ ID: 3, Code: "00015",  Name: "Mochila", UnitPrice: 2.5, Quantity: 1 },
 }
 
 var clients = []model.Client{
-	{ Ruc: 17200193, Name: "Yanpieer" },
-	{ Ruc: 17200133, Name: "Miguel" },
-	{ Ruc: 17200140, Name: "Paolo" },
+	{ ID: 1, Ruc: "17200193", Name: "Yanpieer" },
+	{ ID: 2, Ruc: "17200133", Name: "Miguel" },
+	{ ID: 3, Ruc: "17200140", Name: "Paolo" },
 }
 
 var orders = []model.Order{
-	{ OrderID: 1, Client: clients[0], Article: articles }, 
-	{ OrderID: 2, Client: clients[1], Article: articles },
-	{ OrderID: 3, Client: clients[2], Article: articles },
+	{ ID: 1, OrderID: 1, Client: clients[0], Article: articles }, 
+	{ ID: 2, OrderID: 2, Client: clients[1], Article: articles },
+	{ ID: 3, OrderID: 3, Client: clients[2], Article: articles },
 }
 
 
 func main() {
 	router := gin.Default()
-	router.GET("/orders", getOrders)
-	router.GET("/orders/:id", getOrderByID)
-	router.POST("/orders", postOrders)
+	router.GET("/api-order-processing/orders", getOrders)
+	router.GET("/api-order-processing/orders/:id", getOrderByID)
+	router.POST("/api-order-processing/orders", postOrders)
 
 	router.Run(util.SERVER_LOCAL)
 	

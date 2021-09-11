@@ -1,6 +1,7 @@
 package model
 
 type Client struct {
-    Ruc    	int64  	`json:"ruc"`
+    ID     	int64  	`json:"id"`
+    Ruc    	string  `json:"ruc"`
     Name  	string  `json:"name"`
 }
