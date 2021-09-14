@@ -1,13 +1,11 @@
-package com.unmsm.distributedsystems.inventorymanager.repository.nosql;
+package com.unmsm.distributedsystems.inventorymanager.repository;
 
-import com.unmsm.distributedsystems.inventorymanager.model.entity.document.ArticleDocument;
+import com.unmsm.distributedsystems.inventorymanager.model.entity.ArticleDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface ArticleRepositoryNoSql extends MongoRepository<ArticleDocument, Integer> {
 
   List<ArticleDocument> findAll();

@@ -6,5 +6,5 @@ type Article struct {
     Name  		string  `json:"name"`
     UnitPrice 	float64 `json:"unitPrice"`
     Quantity  	int64 	`json:"quantity"`
-    Subtotal    int64   `json:"subtotal"`
+    Subtotal    float64 `json:"subtotal"`
 }

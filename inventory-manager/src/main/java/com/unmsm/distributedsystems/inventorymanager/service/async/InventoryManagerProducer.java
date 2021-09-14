@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class Producer {
+public class InventoryManagerProducer {
 
   private KafkaTemplate<String, String> kafkaTemplate;
 

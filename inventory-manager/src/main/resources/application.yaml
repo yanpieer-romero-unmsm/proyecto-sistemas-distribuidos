@@ -6,10 +6,6 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/db_library
 
-  redis:
-    host: localhost
-    port: 6379
-
 #  h2:
 #    console:
 #      enabled: true

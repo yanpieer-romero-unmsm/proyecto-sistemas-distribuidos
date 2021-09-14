@@ -32,7 +32,7 @@ func getOrders(c *gin.Context) {
 }
 
 func getReceivables(c *gin.Context) {
-	go consumer.KafkaConsumer(util.TOPIC_ORDER, util.SERVER_KAFKA)
+	go consumer.KafkaConsumer(util.TOPIC_RECEIVABLE, util.SERVER_KAFKA)
 	c.IndentedJSON(http.StatusOK, db.ConnectingWithRedisGET(util.SERVER_REDIS))
 }
 

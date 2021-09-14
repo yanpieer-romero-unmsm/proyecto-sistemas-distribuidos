@@ -16,5 +16,4 @@ public class ArticleDto implements Serializable {
   private String name;
   private Double unitPrice;
   private Integer quantity;
-  private Double subtotal;
 }

@@ -21,7 +21,4 @@ public class ArticleController {
   public ResponseEntity<List<ArticleDto>> findAll() {
     return ResponseEntity.ok(service.findAll());
   }
-
-
-
 }

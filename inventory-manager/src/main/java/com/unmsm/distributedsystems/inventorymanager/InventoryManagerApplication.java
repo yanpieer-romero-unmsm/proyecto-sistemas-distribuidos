@@ -1,7 +1,7 @@
 package com.unmsm.distributedsystems.inventorymanager;
 
-import com.unmsm.distributedsystems.inventorymanager.model.entity.document.ArticleDocument;
-import com.unmsm.distributedsystems.inventorymanager.repository.nosql.ArticleRepositoryNoSql;
+import com.unmsm.distributedsystems.inventorymanager.model.entity.ArticleDocument;
+import com.unmsm.distributedsystems.inventorymanager.repository.ArticleRepositoryNoSql;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
