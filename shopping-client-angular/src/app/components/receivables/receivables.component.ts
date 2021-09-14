@@ -14,8 +14,12 @@ export class ReceivablesComponent implements OnInit {
   constructor(private receivableService: ReceivablesService) { }
 
   ngOnInit(): void {
+    
     this.receivableService.listar()
       .subscribe(receivables => this.receivables = receivables);
+      console.log(this.receivables);  
   }
+  
+  
 
 }

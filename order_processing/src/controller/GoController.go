@@ -1,4 +1,4 @@
-package main
+package controller
 
 import (
 	"encoding/json"
@@ -15,42 +15,29 @@ import (
 	"yanpieer.com/order_processing/util"
 )
 
-
-
-
-var orders = []model.Order{
-}
-
-func main() {
+func GoController(){
 	router := gin.Default()
 	router.GET("/api-order-processing/orders", getOrders)
 	router.GET("/api-order-processing/orders/:id", getOrderByID)
 	router.POST("/api-order-processing/orders", postOrders)
 	router.GET("/api-order-processing/receivables", getReceivables)
-
-	router.Run(util.SERVER_LOCAL)
 	
+	router.Run(util.SERVER_LOCAL)
 }
 
+var orders []model.Order = []model.Order{}
 
 func getOrders(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, orders)
 }
 
 func getReceivables(c *gin.Context) {
-	//jsonE, _ := json.Marshal(receivables[0])
-	//fmt.Println(string(jsonE))
-
-	m := consumer.StartKafkaConsumer(util.TOPIC_RECEIVABLE, util.SERVER_KAFKA)
-	fmt.Println("String receivable :  ", m)
-	var receivables model.Receivable
-	json.Unmarshal([]byte(m), &receivables)
-	fmt.Println("Elemento de receivable: ", receivables)
-	db.ConnectingWithRedis(util.SERVER_REDIS, receivables)
-	c.IndentedJSON(http.StatusOK, receivables)
+	go consumer.KafkaConsumer(util.TOPIC_ORDER, util.SERVER_KAFKA)
+	c.IndentedJSON(http.StatusOK, db.ConnectingWithRedisGET(util.SERVER_REDIS))
 }
 
 func postOrders(c *gin.Context) {
+
 	var newOrder model.Order
 
 	if err := c.BindJSON(&newOrder); err != nil {
@@ -61,23 +48,22 @@ func postOrders(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newOrder)
 	jsonE, _ := json.Marshal(newOrder)
 
-	producer.StartKafkaProducer(util.TOPIC_ORDER, util.SERVER_KAFKA, string(jsonE))
-	consumer.StartKafkaConsumer(util.TOPIC_ORDER, util.SERVER_KAFKA)
-	/* log.Output(1, string(jsonE)) */
+	producer.KafkaProducer(util.TOPIC_ORDER, util.SERVER_KAFKA, string(jsonE))
+	//consumer.StartKafkaConsumer(util.TOPIC_ORDER, util.SERVER_KAFKA)
+	//log.Output(1, string(jsonE))
 	//db.ConnectingWithRedis(util.SERVER_REDIS, newOrder)
 }
 
-
 func getOrderByID(c *gin.Context) {
 	id := c.Param("id")
-	
+
 	i, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("Hello, %v with type %s!\n", i, reflect.TypeOf(i))
 	for _, a := range orders {
-		if a.OrderID ==  i{
+		if a.OrderID == i {
 			c.IndentedJSON(http.StatusOK, a)
 			jsonE, _ := json.Marshal(orders[i])
 			fmt.Println(string(jsonE))

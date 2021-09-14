@@ -11,7 +11,7 @@ import { CommonService } from './common.service';
 })
 export class OrdersService extends CommonService<Order>{
 
-  protected baseEndpoint = '/api-inventory-management/orders';
+  protected baseEndpoint = '/api-order-processing/orders';
   client: Client;
   order: Order;
 

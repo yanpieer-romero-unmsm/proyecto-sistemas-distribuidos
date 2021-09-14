@@ -9,7 +9,7 @@ class Conexion():
     def getConexion(self):
         try:
             if self.con is None:
-                credenciales = {'host':'localhost', 'user':'root', 'password':'oracle12c', 'database':'invoice'}
+                credenciales = {'host':'localhost', 'user':'root', 'password':'romerosalazar', 'database':'invoice'}
                 self.con = pymysql.connect(**credenciales)
                 print('Conexión establecida')
             return self.con
