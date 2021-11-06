@@ -1,0 +1,118 @@
+########################################################################
+AUTORES - GRUPO 4
+########################################################################
+1. ARMAS ABT, MIGUEL RODRIGO
+2. BOADA CAJO, EDINSON PAOLO
+3. PONTE ROJAS, JOSUE DANIEL
+4. ROMERO SALAZAR, YANPIEER JOSUE
+
+
+Este archivo contiene los comandos suficientes para la ejecución del proyecto almacenado en el siguiente
+repositorio de git:
+
+https://github.com/yanpieer-romero-unmsm/proyecto-sistemas-distribuidos
+
+########################################################################
+SECCIÓN 1: Pre requsitos. 
+########################################################################
+- Mantener los tópicos limpios
+- Mantener el servicio de MongoDB, MySQL, PostgreSQL, Redis activos
+
+Comandos útiles para levantar REDIS y KAFKA
+
+KAFKA
+************************************************************************
+Ubicarse en el directorio de KAFKA_HOME
+
+Levantar Zookeeper: 
+	$ bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+
+Levantar Apache Kafka: 
+	$ bin\windows\kafka-server-start.bat config\server.properties
+
+Crear tópico: 
+	$ bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic orderTopic
+
+Listar tópicos 
+	$ bin\windows\kafka-topics.bat --list --zookeeper localhost:2181
+
+Crear producer 
+	$ bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic oderTopic
+
+Crear consumer 
+	$ bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic orderTopic --from-beginning
+
+
+REDIS
+************************************************************************
+Levantar servidor de redis
+	$ redis-server
+	
+Levantar cliente de redis
+	$ redis-cli
+	
+Mostrar hashes
+	$ keys *
+	
+Borrar cache
+	$ flushall
+
+
+
+
+
+########################################################################
+SECCIÓN 2: Comandos para ejecutar el proyecto. 
+########################################################################
+
+
+SHPOPPING-CLIENT-ANGULAR [Angular]
+************************************************************************
+$ npm install
+$ npm start
+
+INVENTORY-MANAGER [Springboot]
+************************************************************************
+Levantar servidor redis
+$ redis-server
+
+Instalar dependencias y levantar proyecto
+$ mvn clean install
+
+
+INVOICE [Python]
+************************************************************************
+Editar la conexión en la clase connection.py contenida en:
+$ cd C:\Temporal-dev\proyecto-sistemas-distribuidos\invoice\app\repository
+
+Instalar dependencias y levantar proyecto
+$ pip install -r requirements.txt
+$ cd app
+$ python consumer.py
+
+
+RECEIVABLE-API [NodeJS]
+************************************************************************
+Editar la conexión en la clase env contenida en el archivo env contenido en:
+$ cd C:\Temporal-dev\proyecto-sistemas-distribuidos\api-receivable\app
+npm install
+npm run dev
+
+
+RECEIVABLE [NodeJS]
+************************************************************************
+npm install
+npm run start:consumer
+
+
+
+
+
+
+
+
+
+
+
+
+

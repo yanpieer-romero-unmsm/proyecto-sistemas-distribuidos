@@ -16,7 +16,6 @@ public class ReceivableConsumer {
   @KafkaListener(topics = "receivable_topic", groupId = "group_id")
   public void consume(String receivableMessage) {
     Gson gson = new Gson();
-    System.out.println("\nMENSAJE: \n" + receivableMessage + "\n");
     ReceivableDto receivableDto = gson.fromJson(receivableMessage, ReceivableDto.class);
     receivableService.save(receivableDto);
   }
